@@ -11,12 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import org.opencv.videoio.VideoCapture;
+
+import java.io.File;
+import java.util.Scanner;
+
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 
 
 public class Camera extends JFrame {
@@ -31,8 +38,7 @@ public class Camera extends JFrame {
 
     private boolean clicked = false;
 
-    public Camera()
-    {
+    public Camera() {
 
         setLayout(null);
 
@@ -46,8 +52,7 @@ public class Camera extends JFrame {
 
         btnCapture.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
 
                 clicked = true;
             }
@@ -59,8 +64,7 @@ public class Camera extends JFrame {
         setVisible(true);
     }
 
-    public void startCamera()
-    {
+    public void startCamera() {
         capture = new VideoCapture(0);
         image = new Mat();
         byte[] imageData;
@@ -78,6 +82,7 @@ public class Camera extends JFrame {
             cameraScreen.setIcon(icon);
 
             if (clicked) {
+                Test test = new Test();
                 String name = JOptionPane.showInputDialog(
                         this, "Enter image name");
                 if (name == null) {
@@ -90,22 +95,23 @@ public class Camera extends JFrame {
                 Imgcodecs.imwrite("images/" + name + ".jpg",
                         image);
 
+                test.scanFile(name);
+
                 clicked = false;
             }
         }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         EventQueue.invokeLater(new Runnable() {
-            @Override public void run()
-            {
+            @Override
+            public void run() {
                 final Camera camera = new Camera();
 
                 new Thread(new Runnable() {
-                    @Override public void run()
-                    {
+                    @Override
+                    public void run() {
                         camera.startCamera();
                     }
                 }).start();
