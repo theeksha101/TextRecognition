@@ -83,14 +83,13 @@ public class Camera extends JFrame {
 
             if (clicked) {
                 Test test = new Test();
-                String name = JOptionPane.showInputDialog(
-                        this, "Enter image name");
-                if (name == null) {
+//                String name = JOptionPane.showInputDialog(
+//                        this, "Enter image name");
+                String name;
                     name = new SimpleDateFormat(
                             "yyyy-mm-dd-hh-mm-ss")
                             .format(new Date(
                                     HEIGHT, WIDTH, getX()));
-                }
 
                 Imgcodecs.imwrite("images/" + name + ".jpg",
                         image);

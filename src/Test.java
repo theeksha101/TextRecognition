@@ -4,9 +4,15 @@ import java.util.Scanner;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
+import javax.swing.*;
+
 public class Test {
 
+    JFrame frame ;
+
     public void scanFile(String img_file_name){
+
+        frame = new JFrame();
 
         Tesseract tesseract = new Tesseract();
         try {
@@ -16,7 +22,9 @@ public class Test {
 
             String text
                     = tesseract.doOCR(new File("images/" + img_file_name +".jpg"));
-            System.out.print(text);
+
+            JOptionPane.showMessageDialog(frame, text);
+
         } catch (TesseractException e) {
             e.printStackTrace();
         }
