@@ -6,7 +6,7 @@ import net.sourceforge.tess4j.TesseractException;
 
 import javax.swing.*;
 
-public class Test {
+public class Scan {
 
     JFrame frame ;
 
@@ -32,10 +32,10 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Test test = new Test();
+        Scan scan = new Scan();
 
         Scanner sc = new Scanner(System.in);
         String img_file_name = sc.next();
-        test.scanFile(img_file_name);
+        scan.scanFile(img_file_name);
     }
 }

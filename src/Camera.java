@@ -4,13 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -19,18 +17,12 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import org.opencv.videoio.VideoCapture;
 
-import java.io.File;
-import java.util.Scanner;
-
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
-
 
 public class Camera extends JFrame {
 
     private JLabel cameraScreen;
 
-    private JButton btnCapture;
+    private JButton btnCapture, selectImage;
 
     private VideoCapture capture;
 
@@ -47,8 +39,11 @@ public class Camera extends JFrame {
         add(cameraScreen);
 
         btnCapture = new JButton("capture");
+        selectImage = new JButton("Images");
         btnCapture.setBounds(300, 480, 80, 40);
+        selectImage.setBounds(500, 480, 80, 40);
         add(btnCapture);
+        add(selectImage);
 
         btnCapture.addActionListener(new ActionListener() {
             @Override
@@ -82,7 +77,7 @@ public class Camera extends JFrame {
             cameraScreen.setIcon(icon);
 
             if (clicked) {
-                Test test = new Test();
+                Scan scan = new Scan();
 //                String name = JOptionPane.showInputDialog(
 //                        this, "Enter image name");
                 String name;
@@ -94,7 +89,7 @@ public class Camera extends JFrame {
                 Imgcodecs.imwrite("images/" + name + ".jpg",
                         image);
 
-                test.scanFile(name);
+                scan.scanFile(name);
 
                 clicked = false;
             }
