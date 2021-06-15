@@ -1,7 +1,9 @@
+package com.project;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
 import org.opencv.core.Mat;
@@ -21,8 +23,7 @@ public class Camera extends JFrame {
 
     private boolean clicked = false;
 
-    public Camera()
-    {
+    public Camera() {
 
         // Designing UI
         setLayout(null);
@@ -37,8 +38,7 @@ public class Camera extends JFrame {
 
         btnCapture.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
 
                 clicked = true;
             }
@@ -51,8 +51,7 @@ public class Camera extends JFrame {
     }
 
     // Creating a camera
-    public void startCamera()
-    {
+    public void startCamera() {
         capture = new VideoCapture(0);
         image = new Mat();
         byte[] imageData;
@@ -74,24 +73,12 @@ public class Camera extends JFrame {
 
             // Capture and save to file
             if (clicked) {
-                // prompt for enter image name
-                String name = JOptionPane.showInputDialog(
-                        this, "Enter image name");
-                if (name == null) {
-                    name = new SimpleDateFormat(
-                            "yyyy-mm-dd-hh-mm-ss")
-                            .format(new Date(
-                                    HEIGHT, WIDTH, getX()));
-                }
 
-                // Write to file
-                Imgcodecs.imwrite("images/" + name + ".jpg",
-                        image);
+                String name = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+                Imgcodecs.imwrite("images/" + name + ".jpg", image);
                 Scan scan = new Scan();
-                scan.scanFile(name);
-
-                DefaultListModel<String> l1 = new DefaultListModel<>();
-
+                String fileName = "images/" + name + ".jpg";
+                scan.scanFile(fileName, true);
                 clicked = false;
             }
         }
